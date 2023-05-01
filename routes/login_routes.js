@@ -17,7 +17,7 @@ router.post("/",async (req,res)=>{
         const user=await users.login(email,password)
         const token=createToken(user._id)
          console.log(token)
-        res.cookie('jwtcookie',token,{httpOnly:false,maxAge:maxAge*1000})
+        res.cookie('jwtcookie',token,{httpOnly:true,maxAge:maxAge*1000})
         res.status(201).send({useremail:email})
         
        } catch(error){
