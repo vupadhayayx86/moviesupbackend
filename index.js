@@ -8,10 +8,11 @@ const feedback_routes=require("./routes/feedback_routes")
 const cookieParser=require('cookie-parser')
 const {requireAuth} =require("./middleware/middleware")
 const { feedbacks } = require('./models/feedback_model')
+const dotenv=require('dotenv')
 
-
+dotenv.config();
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:5173', credentials: true, exposedHeaders: ['Set-Cookie', 'Date', 'ETag'] }))
+app.use(cors())
 app.use(expreess.json())
 app.use(function(req, res, next) {
     res.header('Content-Type', 'application/json;charset=UTF-8')
@@ -34,6 +35,6 @@ app.get("/all",async(req,res)=>{
   res.status(200).send({allFeedbacks})
 })
 
-mongoose.connect("mongodb+srv://testuser:testuser123@cluster0.ynlelsn.mongodb.net/feedback-data")
+mongoose.connect(`${process.env.DB_URI}`)
     .then(()=>{app.listen(5000,()=>console.log("MongoDB connection Successfull & Server started on port 5000...."))})
     .catch((error)=>console.log("Server start failed ",error))
