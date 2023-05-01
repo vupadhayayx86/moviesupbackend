@@ -11,8 +11,8 @@ const { feedbacks } = require('./models/feedback_model')
 const dotenv=require('dotenv')
 
 dotenv.config();
-app.use(cookieParser())
 app.use(cors({ origin: 'https://moviesupfrontend.onrender.com/', credentials: true, exposedHeaders: ['Set-Cookie', 'Date', 'ETag'] }))
+app.use(cookieParser())
 app.use(expreess.json())
 app.use(function(req, res, next) {
     res.header('Content-Type', 'application/json;charset=UTF-8')
