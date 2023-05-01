@@ -7,6 +7,8 @@ const login_routes=require("./routes/login_routes")
 const feedback_routes=require("./routes/feedback_routes")
 const cookieParser=require('cookie-parser')
 const {requireAuth} =require("./middleware/middleware")
+const { feedbacks } = require('./models/feedback_model')
+
 
 app.use(cookieParser())
 app.use(cors({ origin: 'http://localhost:5173', credentials: true, exposedHeaders: ['Set-Cookie', 'Date', 'ETag'] }))
@@ -24,6 +26,13 @@ app.use("/users",user_routes)
 app.use("/login",login_routes)
 app.use("/feedback",requireAuth,feedback_routes)
 
+app.get("/all",async(req,res)=>{
+  const feedList=await feedbacks.find()
+  const allFeedbacks=feedList.map((item)=>{
+      return {feedback:item.feedback,subject:item.subject,createAt:item.createdAt}
+  })
+  res.status(200).send({allFeedbacks})
+})
 
 mongoose.connect("mongodb+srv://testuser:testuser123@cluster0.ynlelsn.mongodb.net/feedback-data")
     .then(()=>{app.listen(5000,()=>console.log("MongoDB connection Successfull & Server started on port 5000...."))})
