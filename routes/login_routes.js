@@ -30,4 +30,8 @@ router.post("/logout",(req,res)=>{
     res.cookie('jwtcookie','',{maxAge:1})
 })
 
+router.get("/",(req,res)=>{
+    res.status(200).send("Login Get route")
+})
+
 module.exports=router
