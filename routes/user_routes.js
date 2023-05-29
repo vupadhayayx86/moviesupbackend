@@ -22,7 +22,7 @@ router.post("/",async (req,res)=>{
     try{
         const user=await users.create({username,email,password})
         const token=createToken(user._id)
-        res.cookie('jwtcookie',token,{httpOnly:false,maxAge:maxAge*1000,secure:true,signed:true})
+        res.cookie('jwtcookie',token,{httpOnly:false,maxAge:maxAge*1000,secure:true})
         res.status(201).send({useremail:email})
     } catch(error){
         res.status(400).send(error)
