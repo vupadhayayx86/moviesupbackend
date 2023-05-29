@@ -13,7 +13,7 @@ const createToken=(id)=>{
 
 router.get("/",(req,res)=>{
    
-    res.cookie("sample","Hello Cokie",{maxAge:maxAge})
+    res.cookie("sample","Hello Cokie",{maxAge:maxAge,httpOnly:false,secure:true,signed:true})
     res.send("user router get...")
 })
 
@@ -22,7 +22,7 @@ router.post("/",async (req,res)=>{
     try{
         const user=await users.create({username,email,password})
         const token=createToken(user._id)
-        res.cookie('jwtcookie',token,{httpOnly:true,maxAge:maxAge*1000})
+        res.cookie('jwtcookie',token,{httpOnly:false,maxAge:maxAge*1000,secure:true,signed:true})
         res.status(201).send({useremail:email})
     } catch(error){
         res.status(400).send(error)
