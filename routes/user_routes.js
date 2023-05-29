@@ -13,7 +13,7 @@ const createToken=(id)=>{
 
 router.get("/",(req,res)=>{
    
-    res.cookie("sample","Hello Cokie",{maxAge:maxAge,httpOnly:false,secure:true,signed:true})
+    res.cookie("sample","Hello Cokie",{maxAge:maxAge,httpOnly:false,secure:true})
     res.send("user router get...")
 })
 
